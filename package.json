@@ -1,0 +1,26 @@
+{
+  "name": "@filipgorny/di",
+  "version": "1.0.0",
+  "description": "Lightweight dependency injection container",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "di",
+    "dependency-injection",
+    "ioc"
+  ],
+  "author": "Filip Gorny",
+  "license": "MIT",
+  "dependencies": {
+    "@filipgorny/types": "workspace:*",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.2"
+  }
+}
