@@ -5,9 +5,10 @@ Lightweight dependency injection container for managing application dependencies
 ## Features
 
 - 🎯 **Simple API** - Just `register()` and `get()`
+- ⚛️ **React Hook** - `useContainer()` for React components
 - 📦 **Type-safe** - Full TypeScript support
 - 🧪 **Testable** - Create isolated containers for testing
-- 🪶 **Lightweight** - No external dependencies (except @filipgorny/types)
+- 🪶 **Lightweight** - Minimal dependencies
 
 ## Installation
 
@@ -72,6 +73,20 @@ container.registerInstance("logger", logger);
 
 // Get the same instance
 const sameLogger = container.get<Logger>("logger");
+```
+
+### React Hook
+
+```typescript
+import { useContainer } from "@filipgorny/di";
+
+function MyComponent({ container }: { container: Container }) {
+  const logger = useContainer(container, "logger");
+  const userService = useContainer(container, UserService);
+
+  // Instances are memoized per render
+  return <div>...</div>;
+}
 ```
 
 ### Check if Registered
@@ -144,6 +159,10 @@ Remove all dependencies from the container.
 
 Get a list of all registered dependency names.
 
+### `useContainer<T>(container: Container, nameOrClass: string | ClassType<T>): T`
+
+React hook to get dependencies from the container. Instances are memoized to prevent unnecessary re-creation.
+
 ## Patterns
 
 ### Constructor Injection with Decorators
@@ -201,6 +220,7 @@ const logger = container.get<Logger>(DI.LOGGER);
 | Feature        | @filipgorny/di        | InversifyJS | NestJS          |
 | -------------- | --------------------- | ----------- | --------------- |
 | Learning curve | Low                   | Medium      | High            |
+| React hooks    | Yes                   | No          | No              |
 | Decorators     | Yes                   | Yes         | Yes             |
-| Size           | ~1KB                  | ~50KB       | Full framework  |
+| Size           | ~2KB                  | ~50KB       | Full framework  |
 | Best for       | Learning, simple apps | Large apps  | Enterprise apps |
