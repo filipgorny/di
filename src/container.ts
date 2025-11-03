@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import { ClassType } from '@devell/types'
+import { ClassType } from '@filipgorny/types'
 import { getInjectMetadata, shouldUseTypeResolution } from './decorators'
 
 type RegistryKey = string | ClassType
