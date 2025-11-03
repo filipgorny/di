@@ -78,11 +78,22 @@ const sameLogger = container.get<Logger>("logger");
 ### React Hook
 
 ```typescript
-import { useContainer } from "@filipgorny/di";
+import { ContainerProvider, useContainer } from "@filipgorny/di";
 
-function MyComponent({ container }: { container: Container }) {
-  const logger = useContainer(container, "logger");
-  const userService = useContainer(container, UserService);
+const container = createContainer();
+// ... register dependencies
+
+function App() {
+  return (
+    <ContainerProvider container={container}>
+      <MyComponent />
+    </ContainerProvider>
+  );
+}
+
+function MyComponent() {
+  const logger = useContainer("logger");
+  const userService = useContainer(UserService);
 
   // Instances are memoized per render
   return <div>...</div>;
@@ -159,9 +170,13 @@ Remove all dependencies from the container.
 
 Get a list of all registered dependency names.
 
-### `useContainer<T>(container: Container, nameOrClass: string | ClassType<T>): T`
+### `ContainerProvider`
 
-React hook to get dependencies from the container. Instances are memoized to prevent unnecessary re-creation.
+React context provider for the container.
+
+### `useContainer<T>(nameOrClass: string | ClassType<T>): T`
+
+React hook to get dependencies from the container. Must be used within a `ContainerProvider`. Instances are memoized to prevent unnecessary re-creation.
 
 ## Patterns
 
