@@ -1,9 +1,13 @@
 {
   "name": "@filipgorny/di",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Lightweight dependency injection container",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
@@ -16,8 +20,15 @@
   ],
   "author": "Filip Gorny",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/filipgorny/di.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@filipgorny/types": "workspace:*",
+    "@filipgorny/types": "^0.0.1",
     "reflect-metadata": "^0.2.2"
   },
   "devDependencies": {

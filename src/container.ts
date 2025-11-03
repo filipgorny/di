@@ -7,9 +7,8 @@ type RegistryKey = string | ClassType
 export class Container {
   private registry = new Map<RegistryKey, ClassType>()
   private instances = new Map<RegistryKey, any>()
-  private singletons = new Set<RegistryKey>()
 
-  register<T>(name: string | ClassType<T>, classType?: ClassType<T>, singleton: boolean = true): void {
+  register<T>(name: string | ClassType<T>, classType?: ClassType<T>): void {
     let key: RegistryKey
     let type: ClassType<T>
 
@@ -30,10 +29,6 @@ export class Container {
     }
 
     this.registry.set(key, type)
-
-    if (singleton) {
-      this.singletons.add(key)
-    }
   }
 
   registerInstance<T>(name: string | ClassType<T>, instance: T): void {
@@ -45,7 +40,6 @@ export class Container {
     }
 
     this.instances.set(key, instance)
-    this.singletons.add(key)
   }
 
   get<T>(name: string | ClassType<T>): T {
@@ -85,10 +79,6 @@ export class Container {
       instance = new ClassType()
     }
 
-    if (this.singletons.has(key)) {
-      this.instances.set(key, instance)
-    }
-
     return instance as T
   }
 
@@ -99,13 +89,11 @@ export class Container {
   clear(name: string | ClassType): void {
     this.registry.delete(name)
     this.instances.delete(name)
-    this.singletons.delete(name)
   }
 
   clearAll(): void {
     this.registry.clear()
     this.instances.clear()
-    this.singletons.clear()
   }
 
   getRegisteredNames(): Array<string | ClassType> {
